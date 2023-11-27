@@ -1,0 +1,53 @@
+
+#include <bits/stdc++.h>
+#include <cstring>
+using namespace std;
+
+#define ll unsigned long long
+#define fast_read ios::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL)
+#define INF 0x3f3f3f3f
+ifstream fin("f.in");
+ofstream fout("f.out");
+
+const int maxn = 1e5 + 3;
+const int maxm = 32385;
+const int mod = 666013;
+
+int n;
+int a[maxn];
+void read(){
+    cin >> n;
+    for(int i = 1; i <= n; ++i)
+        cin >> a[i];
+}
+
+int partitionare(int st, int dr){
+    int pivot = a[dr];
+    int poz = st;
+    for(int i = st; i < dr; ++i)
+        if(a[i] < pivot){
+            swap(a[i], a[poz]);
+            poz++;
+        }
+    swap(a[poz], a[dr]);
+    return poz;
+}
+void quicksort(int st, int dr){
+    if(st < dr){
+        int pozind = partitionare(st, dr);
+        quicksort(st, pozind - 1);
+        quicksort(pozind + 1, dr);
+    }
+}
+int main(){
+    read();
+    quicksort(1, n);
+    for(int i = 1; i <= n; ++i)
+        cout << a[i] << " ";
+    return 0;
+}
+
+/*
+
+
+*/
